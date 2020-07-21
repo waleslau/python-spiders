@@ -34,20 +34,13 @@ LEVEL_STYLES = dict(
     critical=dict(color="red"),
 )
 
-logger = logging.getLogger("tos")
+logger = logging.getLogger("nihaowua")
 coloredlogs.install(
-    level="INFO",
+    level=logging.DEBUG,
     fmt="[%(levelname)s] [%(asctime)s] [%(filename)s:%(lineno)d] %(message)s",
     level_styles=LEVEL_STYLES,
     field_styles=FIELD_STYLES,
 )
-"""
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
-"""
 
 
 def get_random_ua():
@@ -59,7 +52,7 @@ headers = {"User-Agent": get_random_ua()}
 
 
 def get_html(url):
-    # logging.info('scraping %s...', url)
+    # logger.info('scraping %s...', url)
     try:
         response = requests.get(url=url, headers=headers, timeout=10)
         # response.encoding = 'utf-8'
@@ -101,11 +94,11 @@ def main():
         if TYPE == 1:
             html = get_html("https://www.nihaowua.com/home.html")
             data = parse(html)
-        logging.info("get data：\n \n \t %s\n", data["post"])
+        logger.info("get data：\n \n \t %s\n", data["post"])
         if SAVE_TO_MONGO:
-            logging.info("saving data to mongodb")
+            logger.info("saving data to mongodb")
             save_data_to_mongo(data)
-            logging.info("data saved successfully")
+            logger.info("data saved successfully")
         else:
             pass
 
