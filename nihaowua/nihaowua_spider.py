@@ -29,7 +29,7 @@ headers = {'User-Agent': get_random_ua()}
 
 
 def get_html(url):
-    logging.info('scraping %s...', url)
+    # logging.info('scraping %s...', url)
     try:
         response = requests.get(url=url, headers=headers, timeout=10)
         # response.encoding = 'utf-8'
@@ -43,22 +43,21 @@ def get_html(url):
 
 def parse(html):
     doc = pq(html)
-    post_id = doc('section div').attr('id')
     post = doc('section div').text()
-    return {'post_id': post_id, 'post': post}
+    return {'post': post}
 
 
 client = pymongo.MongoClient(MONGO_CONNECTION_STRING)
 db = client[MONGO_DB_NAME]
 
 
-def save_data(data):
+def save_data_to_mongo(data):
     if TYPE == 0:
         collection = db[MONGO_COLLECTION_NAME_WU]
-    else:
+    if TYPE == 1:
         collection = db[MONGO_COLLECTION_NAME_DU]
 
-    collection.update_one({'post_id': data.get('post_id')}, {'$set': data},
+    collection.update_one({'post': data.get('post')}, {'$set': data},
                           upsert=True)
 
 
@@ -72,10 +71,13 @@ def main():
         if TYPE == 1:
             html = get_html('https://www.nihaowua.com/home.html')
             data = parse(html)
-        logging.info('get data %s', data)
-        logging.info('saving data to mongodb')
-        save_data(data)
-        logging.info('data saved successfully')
+        logging.info('\nget data：\n \t %s\n', data['post'])
+        if SAVE_TO_MONGO:
+            logging.info('saving data to mongodb')
+            save_data_to_mongo(data)
+            logging.info('data saved successfully')
+        else:
+            pass
 
 
 if __name__ == "__main__":
