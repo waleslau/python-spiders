@@ -16,7 +16,6 @@ from pyquery import PyQuery as pq
 from fake_useragent import UserAgent
 from conf import *
 
-
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s: %(message)s')
 
@@ -26,9 +25,7 @@ def get_random_ua():
     return ua.random
 
 
-headers = {
-    'User-Agent': get_random_ua()
-}
+headers = {'User-Agent': get_random_ua()}
 
 
 def get_html(url):
@@ -48,10 +45,7 @@ def parse(html):
     doc = pq(html)
     post_id = doc('section div').attr('id')
     post = doc('section div').text()
-    return {
-        'post_id': post_id,
-        'post': post
-    }
+    return {'post_id': post_id, 'post': post}
 
 
 client = pymongo.MongoClient(MONGO_CONNECTION_STRING)
@@ -64,11 +58,8 @@ def save_data(data):
     else:
         collection = db[MONGO_COLLECTION_NAME_DU]
 
-    collection.update_one({
-        'post_id': data.get('post_id')
-    }, {
-        '$set': data
-    }, upsert=True)
+    collection.update_one({'post_id': data.get('post_id')}, {'$set': data},
+                          upsert=True)
 
 
 def main():

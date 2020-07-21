@@ -8,7 +8,6 @@
 @Contact :   waleslau@foxmail.com
 """
 
-
 # 数据库配置信息
 # 连接信息，请修改为你自己的，格式为：'mongodb://user:passwd@hostname:port'
 # 下面的数据库是我建立的测试用环境，随时下线
@@ -16,8 +15,8 @@ MONGO_CONNECTION_STRING = 'mongodb://admin:000000@39.107.48.220:27017'
 # 数据库名字
 MONGO_DB_NAME = 'nihaowua'
 # 保存数据的集合的名字
-MONGO_COLLECTION_NAME_WU = 'nihaowua' # 你好污啊
-MONGO_COLLECTION_NAME_DU = 'dujitang' # 毒鸡汤
+MONGO_COLLECTION_NAME_WU = 'nihaowua'  # 你好污啊
+MONGO_COLLECTION_NAME_DU = 'dujitang'  # 毒鸡汤
 
 # 爬取类型
 # 0 : 你好污啊
