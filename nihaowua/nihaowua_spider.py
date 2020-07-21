@@ -16,6 +16,7 @@ import pymongo
 from pyquery import PyQuery as pq
 from fake_useragent import UserAgent
 from conf import *
+from time import sleep
 
 FIELD_STYLES = dict(
     asctime=dict(color="green"),
@@ -101,6 +102,7 @@ def main():
             logger.info("data saved successfully")
         else:
             pass
+        sleep(0.5)
 
 
 if __name__ == "__main__":
