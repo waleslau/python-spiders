@@ -101,7 +101,7 @@ def main():
         if TYPE == 1:
             html = get_html("https://www.nihaowua.com/home.html")
             data = parse(html)
-        logging.info("\nget data：\n \t %s\n", data["post"])
+        logging.info("get data：\n \n \t %s\n", data["post"])
         if SAVE_TO_MONGO:
             logging.info("saving data to mongodb")
             save_data_to_mongo(data)
