@@ -49,10 +49,8 @@ def get_random_ua():
     return ua.random
 
 
-headers = {"User-Agent": get_random_ua()}
-
-
 def get_html(url):
+    headers = {"User-Agent": get_random_ua()}
     # logger.info('scraping %s...', url)
     try:
         response = requests.get(url=url, headers=headers, timeout=10)
