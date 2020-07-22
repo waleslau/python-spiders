@@ -23,7 +23,6 @@ SAVE_TO_FILE = True
 SAVE_TO_MONGO = False
 # 数据库配置信息
 # 连接信息，请修改为你自己的，格式为：'mongodb://user:passwd@hostname:port'
-# 下面的数据库是我建立的测试用环境，随时下线
 MONGO_CONNECTION_STRING = 'mongodb://admin:000000@127.0.0.1:27017'
 # 数据库名字
 MONGO_DB_NAME = 'nihaowua'
