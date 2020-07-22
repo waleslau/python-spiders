@@ -56,7 +56,7 @@ def get_html(url):
     # logger.info('scraping %s...', url)
     try:
         response = requests.get(url=url, headers=headers, timeout=10)
-        # response.encoding = 'utf-8'
+        response.encoding = 'utf-8'
         if response.status_code == 200:
             return response.text
         logging.error("get invalid status code %s while scraping %s",
@@ -85,6 +85,17 @@ def save_data_to_mongo(data):
                           upsert=True)
 
 
+def save_data_to_file(data):
+    if TYPE == 0:
+        fo = open('你好污啊.txt', 'a+', encoding='utf-8')
+        fo.write(data)
+        fo.close()
+    if TYPE == 1:
+        fo = open('毒鸡汤.txt', 'a+', encoding='utf-8')
+        fo.write(data)
+        fo.close()
+
+
 def main():
     global TIMES
     while TIMES > 0:
@@ -97,11 +108,13 @@ def main():
             data = parse(html)
         logger.info("get data：\n \n \t %s\n", data["post"])
         if SAVE_TO_MONGO:
-            logger.info("saving data to mongodb")
+            logger.info("saving data to mongodb..")
             save_data_to_mongo(data)
             logger.info("data saved successfully")
-        else:
-            pass
+        if SAVE_TO_FILE:
+            logger.info("writing data to file..")
+            save_data_to_file(str(data['post']) + '\n')
+            logger.info("writing successfully")
         sleep(0.5)
 
 
