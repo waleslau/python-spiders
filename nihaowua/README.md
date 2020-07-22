@@ -6,9 +6,10 @@
 ```bash
 pip install -r depends.txt
 ```  
+### 编辑配置文件 conf.py
 
 ### 运行
 
 ```bash
-python3 nihaowua_spider.py
+python3 spider.py
 ```
